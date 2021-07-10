@@ -1,0 +1,31 @@
+#!/bin/bash
+user=$(whoami);
+if [[ $user != "pi" ]]; then
+  if su - pi -c "/usr/bin/screen -list" | grep -q Pinecraft; then
+    printf "Stopping Minecraft Server. This will take time."
+    su - pi -c "screen -S Pinecraft -p 0 -X stuff \"stop^M\""
+    running=1
+  fi
+  while [[ $running == 1 ]]; do
+    if ! su - pi -c "/usr/bin/screen -list" | grep -q Pinecraft; then
+      running=0
+    fi
+    sleep 3
+    printf "."
+  done
+else
+  if /usr/bin/screen -list | grep -q Pinecraft; then
+    printf "Stopping Minecraft Server. This will take time."
+    screen -S Pinecraft -p 0 -X stuff "stop^M"
+    running=1
+  fi
+  while [[ $running == 1 ]]; do
+    if ! /usr/bin/screen -list | grep -q Pinecraft; then
+      running=0
+    fi
+    sleep 3
+    printf "."
+  done
+fi
+echo
+echo "Done. Minecraft has been stopped safely."
