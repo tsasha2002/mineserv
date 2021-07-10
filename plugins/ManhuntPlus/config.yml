@@ -40,10 +40,10 @@ clearStart: true
 
 # If set to true, compass will have a counter of blocks displayed
 # between you and your target
-distanceTracker: true
+distanceTracker: false
 
 # If set to true, all players will reset achievements on start
-achievementReset: false
+achievementReset: true
 
 # Change this to see how team-chat looks in game. Placeholders listed above
 # Set to "%default%" to get the default team-chat message
